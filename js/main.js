@@ -27,6 +27,17 @@
     toggle.setAttribute('aria-expanded', 'false');
   }));
 
+  /* --- burger vidljiv tek nakon scrolla --- */
+  let navTick = false;
+  function updateScrolled() {
+    document.body.classList.toggle('scrolled', window.scrollY > 40);
+    navTick = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!navTick) { requestAnimationFrame(updateScrolled); navTick = true; }
+  }, { passive: true });
+  updateScrolled();
+
   /* --- degustacije: zum grozda pri scrollu --- */
   const grozd = document.getElementById('grozd');
   if (grozd && !reduced) {
