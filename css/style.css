@@ -79,7 +79,7 @@ a{color:inherit}
   display:flex;align-items:center;overflow:clip}
 .ponuda-inner{width:100%;max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr 1fr;
   gap:1.5rem;align-items:center}
-.arch{position:relative;z-index:4;width:min(100%,calc((100svh - 5.5rem)/1.35));margin:0 auto;container-type:inline-size}
+.arch{position:relative;z-index:4;width:min(100%,calc((100svh - 5.5rem)/1.48));margin:0 auto;container-type:inline-size}
 /* slika_ponuda_vina — placeholder: za povratak slike iza okvira dodaj ovdje
    background:url('../assets/img/ponuda-grozdje.jpg') center/cover; */
 .arch-photo{position:absolute;inset:0;border-radius:2px}
@@ -88,7 +88,7 @@ a{color:inherit}
 .arch-text-top{position:absolute;top:9%;top:12.5cqw;left:0;right:0;text-align:center;z-index:3;color:var(--ink)}
 .arch-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3vw,2.4rem);font-size:6.2cqw;line-height:1.15}
 .arch-sub{letter-spacing:.16em;text-indent:.16em;font-size:.85rem;font-size:2.1cqw;margin-top:.8cqw;line-height:1.2}
-.arch-text-bottom{position:absolute;top:76.5%;top:103cqw;left:0;right:0;text-align:center;z-index:3;color:var(--ink);
+.arch-text-bottom{position:absolute;top:76.5%;top:113cqw;left:0;right:0;text-align:center;z-index:3;color:var(--ink);
   font-size:clamp(.8rem,1.4vw,.98rem);font-size:2.8cqw;line-height:1.6;white-space:nowrap}
 
 /* wines */
