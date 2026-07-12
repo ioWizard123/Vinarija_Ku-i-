@@ -80,12 +80,12 @@ a{color:inherit}
 .ponuda-inner{width:100%;max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr 1fr;
   gap:1.5rem;align-items:center}
 .arch{position:relative;z-index:4;width:min(100%,calc((100svh - 5.5rem)/1.48));margin:0 auto;container-type:inline-size}
-/* slika_ponuda_vina — placeholder: za povratak slike iza okvira dodaj ovdje
-   background:url('../assets/img/ponuda-grozdje.jpg') center/cover; */
-.arch-photo{position:absolute;inset:0;border-radius:2px}
+/* slika_ponuda_vina — vinograd iza okvira ponude */
+.arch-photo{position:absolute;inset:0 -5%;border-radius:2px;
+  background:url('../assets/img/ponuda-vinograd.jpg') center/cover no-repeat}
 .arch-frame{position:relative;display:block;width:82%;margin:9% auto;z-index:2;
   filter:drop-shadow(0 14px 30px rgba(0,0,0,.30))}
-.arch-text-top{position:absolute;top:9%;top:12.5cqw;left:0;right:0;text-align:center;z-index:3;color:var(--ink)}
+.arch-text-top{position:absolute;top:9%;top:12.5cqw;left:0;right:0;text-align:center;z-index:3;color:var(--ink);transform:translateX(-1.5cqw)}
 .arch-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3vw,2.4rem);font-size:6.2cqw;line-height:1.15}
 .arch-sub{letter-spacing:.16em;text-indent:.16em;font-size:.85rem;font-size:2.1cqw;margin-top:.8cqw;line-height:1.2}
 .arch-text-bottom{position:absolute;top:76.5%;top:113cqw;left:0;right:0;text-align:center;z-index:3;color:var(--ink);
@@ -98,12 +98,20 @@ a{color:inherit}
 .wine[data-wine="kapljica"] .bottle-wrap{grid-column:2;grid-row:1}
 .wine[data-wine="kapljica"] .wine-text{grid-column:1;grid-row:1}
 .bottle-wrap{position:relative;display:block;margin:0 auto;width:fit-content}
-.bottle-img{width:clamp(130px,12vw,175px);width:clamp(96px,40cqw,250px);filter:drop-shadow(0 18px 26px rgba(0,0,0,.55))}
+.bottle-img{width:clamp(166px,15.2vw,222px);width:clamp(122px,50.7cqw,317px);filter:drop-shadow(0 18px 26px rgba(0,0,0,.55))}
 /* zatamnjene fotografije grožđa iza boca (pozicije po breakpointu niže) */
 .bottle-wrap::before{content:'';position:absolute;z-index:-1;pointer-events:none;
   background:center/contain no-repeat;opacity:.9;filter:brightness(.12) saturate(1.15)}
 .wine[data-wine="grasevina"] .bottle-wrap::before{background-image:url('../assets/img/grozd-tamni.png');aspect-ratio:900/717}
 .wine[data-wine="kapljica"] .bottle-wrap::before{background-image:url('../assets/img/grozd-bijeli.png');aspect-ratio:620/460}
+/* odraz dna boce prema dolje — zrcaljeno, zatamnjeno, brzo blijedi */
+.bottle-wrap::after{content:'';position:absolute;top:99.5%;left:0;width:100%;height:22%;pointer-events:none;
+  background-size:100% auto;background-position:bottom;background-repeat:no-repeat;
+  transform:scaleY(-1);opacity:.65;filter:brightness(.95) blur(.5px);
+  -webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.95),transparent);
+  mask-image:linear-gradient(to top,rgba(0,0,0,.95),transparent)}
+.wine[data-wine="grasevina"] .bottle-wrap::after{background-image:url('../assets/img/boca-grasevina.png')}
+.wine[data-wine="kapljica"] .bottle-wrap::after{background-image:url('../assets/img/boca-kapljica.png')}
 .wine-name{font-family:var(--serif);font-size:clamp(1.3rem,6cqw,2.3rem);margin-top:0;letter-spacing:.05em}
 .wine-blurb{font-size:clamp(.85rem,3.6cqw,1.3rem);opacity:.9;margin:.35rem 0 0}
 
@@ -126,7 +134,14 @@ a{color:inherit}
 /* desktop: veće slike grožđa iza boca, na sredini visine boce, gurnute prema rubovima */
 @media (min-width:1025px){
   /* odmak boca od rubova ekrana da se slike grožđa ne režu na užim desktopima */
-  .ponuda-inner{padding:0 clamp(2.5rem,6vw,6rem)}
+  .ponuda-inner{padding:0 clamp(2.5rem,6vw,6rem);
+    /* koliko fotka vinograda ulazi u bočne stupce — tekst se odmiče da nikad ne prijeđe preko nje */
+    --pon-pad:clamp(2.5rem,6vw,6rem);
+    --pon-colw:calc((min(100vw - 2rem,1600px) - 2*var(--pon-pad) - 3rem)/2);
+    --pon-archw:min(var(--pon-colw),calc((100svh - 5.5rem)/1.48));
+    --pon-intrude:max(0px,calc(var(--pon-archw)*.05 - (var(--pon-colw) - var(--pon-archw))/2 - 1.5rem))}
+  .wine[data-wine="grasevina"]{padding-right:var(--pon-intrude)}
+  .wine[data-wine="kapljica"]{padding-left:var(--pon-intrude)}
   .wine[data-wine="grasevina"] .bottle-wrap::before{width:185%;left:-115%;top:50%;bottom:auto;transform:translateY(-50%)}
   .wine[data-wine="kapljica"] .bottle-wrap::before{width:160%;right:-115%;top:50%;bottom:auto;transform:translateY(-50%)}
 }
@@ -358,9 +373,11 @@ a{color:inherit}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width:1024px){
-  .ponuda{min-height:0;padding:3.5rem 1rem}
+  /* sekcija krece odmah slikom vinograda (bez crvenog iznad), fotka od ruba do ruba */
+  .ponuda{min-height:0;padding:0 1rem 3.5rem}
   .ponuda-inner{grid-template-columns:1fr;justify-items:center;gap:1rem}
   .arch{order:1;width:min(560px,94vw)}
+  .arch-photo{inset:0 calc(50% - 50vw)}
   .wine{order:2;display:grid;grid-template-columns:auto auto;align-items:center;gap:0 4cqw;text-align:left;margin-top:2.8rem;justify-content:center}
   .bottle-img{width:clamp(100px,24cqw,230px)}
   .wine .wine-name{margin-top:0;font-size:clamp(1.5rem,4.4cqw,2.5rem)}
