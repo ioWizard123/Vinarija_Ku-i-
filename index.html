@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="assets/img/grb.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -102,8 +102,8 @@
 
 <!-- ===== NAŠA PRIČA ===== -->
 <section class="prica" id="nasa-prica">
-  <img class="prica-decor prica-decor-l" src="assets/img/grozd-silueta2.png" alt="" aria-hidden="true">
-  <img class="prica-decor prica-decor-r" src="assets/img/grozd-silueta2.png" alt="" aria-hidden="true">
+  <img class="prica-decor prica-decor-r2" src="assets/img/ukras-loza.png" alt="" aria-hidden="true">
+  <img class="prica-decor prica-decor-r" src="assets/img/ukras-loza.png" alt="" aria-hidden="true">
   <div class="container">
     <h2 class="sec-title reveal">Naša <span class="script">p</span>riča</h2>
 
@@ -124,19 +124,23 @@
         tada započinju i prvi nastupi na vinskim izložbama diljem regije, od Slovenije do Novog
         Sada, gdje vina Kušić počinju osvajati priznanja i privlačiti pažnju stručnjaka i posjetitelja.</p>
       </div>
-      <div class="reveal">
+      <div class="reveal prica-extra">
         <p>Treća generacija uključuje se 1984. godine, nastavljajući graditi ono što su prethodne
         generacije stvarale desetljećima. Poseban iskorak događa se 2015. godine kada se sade
         novi nasadi graševine te započinje snažan razvoj vinarije. Od tada kontinuirano
         sudjelujemo na vinskim natjecanjima i izložbama, osvajajući brojna priznanja za
         kvalitetu naših vina.</p>
         <figure class="prica-photo">
-          <img src="assets/img/prica-arhiva.jpg" alt="Arhivska fotografija obitelji Kušić ispred stare kuće" data-lightbox="Obiteljska arhiva Kušić">
+          <img src="assets/img/prica-stara-kuca.jpg" alt="Uokvirena fotografija stare obiteljske kuće Kušić" data-lightbox="Stara obiteljska kuća — obiteljska arhiva">
         </figure>
       </div>
     </div>
 
-    <div class="prica-danas reveal">
+    <div class="prica-more-wrap">
+      <button class="prica-more-btn" id="prica-more-btn" type="button" aria-expanded="false" aria-controls="prica-ostatak">Pročitaj više</button>
+    </div>
+
+    <div class="prica-danas reveal prica-extra" id="prica-ostatak">
       <p><span class="script-initial">D</span>anas obrađujemo više od 8.000 vlastitih trsova te nastavljamo ulagati u kvalitetu
       proizvodnje i iskustvo naših gostiju. U sklopu vinarije nalaze se vinogradi, kušaonica kapaciteta do
       40 osoba te podrum smješten u obnovljenoj povijesnoj kući iz 1930. godine. Prostor je uređen za
@@ -145,16 +149,17 @@
       <p>Ponosni smo na put koji smo prošli, ali još više na ono što stvaramo za buduće generacije. Svaka
       boca našeg vina nosi dio obiteljske povijesti, predanosti i ljubavi prema vinogradu.</p>
       <p>Dobrodošli u Vina Kušić — mjesto gdje tradicija živi u svakoj čaši.</p>
-      <p class="zivjeli-mini">Živjeli!</p>
+      <p class="zivjeli-mini">Živjeli! 🍷</p>
     </div>
   </div>
 </section>
 
 <!-- ===== DEGUSTACIJE (grozd) ===== -->
 <section class="degustacije" id="degustacije">
+  <img class="degu-decor" src="assets/img/ukras-grozd3.png" alt="" aria-hidden="true">
   <div class="grozd-wrap">
     <div class="grozd" id="grozd">
-      <svg class="grozd-stem" viewBox="0 0 300 190" aria-hidden="true">
+      <svg class="grozd-stem" viewBox="0 0 300 190" width="300" height="190" aria-hidden="true">
         <path d="M290 10 C 200 20, 130 60, 118 185" fill="none" stroke="#2b1206" stroke-width="17" stroke-linecap="round"/>
         <path d="M92 8 C 118 12, 138 34, 140 62 C 112 66, 84 52, 74 30 C 68 18, 76 8, 92 8 Z" fill="#2b1206"/>
       </svg>
@@ -162,14 +167,14 @@
       <div class="krug foto k2"><img src="assets/img/grozdje-loza.jpg" alt="Grožđe na lozi" data-lightbox="Vinograd"></div>
       <div class="krug title-krug k3"><span>Degustacije</span></div>
       <div class="krug foto k4"><img src="assets/img/drvorez.jpg" alt="Drvorez s motivom vinara" data-lightbox="Detalj iz kušaonice"></div>
-      <div class="krug prazni-t k5" aria-hidden="true"></div>
+      <div class="krug foto k5"><img src="assets/img/gal-grozdje-rozo.jpg" alt="Ružičasto grožđe na trsu" data-lightbox="Grožđe pred berbu"></div>
       <div class="krug text-krug k6"><span>Posjetite nas, kušajte naša vina i otkrijte okuse koji čuvaju tradiciju naše vinarije.</span></div>
-      <div class="krug prazni k7" aria-hidden="true"></div>
+      <div class="krug foto k7"><img src="assets/img/gal-drustvo.jpg" alt="Društvo s čašama vina u podrumu" data-lightbox="Degustacija u podrumu"></div>
       <div class="krug foto k8"><img src="assets/img/vinograd-redovi.jpg" alt="Redovi vinograda" data-lightbox="Vinogradi Kušić"></div>
       <div class="krug foto k9"><img src="assets/img/kusaonica.jpg" alt="Kušaonica s dugim stolom" data-lightbox="Kušaonica — do 40 osoba"></div>
-      <div class="krug prazni k10" aria-hidden="true"></div>
+      <div class="krug foto k10"><img src="assets/img/gal-berba.jpg" alt="Prikolica puna ubranog grožđa" data-lightbox="Berba — plodovi cijele godine rada"></div>
       <div class="krug foto k11"><img src="assets/img/lisce-zuto.jpg" alt="Lišće vinove loze" data-lightbox="Vinova loza"></div>
-      <div class="krug prazni-t k12" aria-hidden="true"></div>
+      <div class="krug foto k12"><img src="assets/img/grozdje-bijelo.jpg" alt="Zeleno grožđe na trsu" data-lightbox="Graševina u vinogradu"></div>
     </div>
   </div>
 </section>

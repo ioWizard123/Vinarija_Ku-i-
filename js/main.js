@@ -27,6 +27,15 @@
     toggle.setAttribute('aria-expanded', 'false');
   }));
 
+  /* --- naša priča: "Pročitaj više" (mobitel + tablet) --- */
+  const pricaBtn = document.getElementById('prica-more-btn');
+  if (pricaBtn) {
+    pricaBtn.addEventListener('click', () => {
+      document.getElementById('nasa-prica').classList.add('prica-open');
+      pricaBtn.setAttribute('aria-expanded', 'true');
+    });
+  }
+
   /* --- burger vidljiv tek nakon scrolla --- */
   let navTick = false;
   function updateScrolled() {
@@ -38,26 +47,27 @@
   }, { passive: true });
   updateScrolled();
 
-  /* --- degustacije: zum grozda pri scrollu --- */
-  const grozd = document.getElementById('grozd');
-  if (grozd && !reduced) {
-    let ticking = false;
-    function updateZoom() {
-      const r = grozd.getBoundingClientRect();
-      const vh = window.innerHeight;
-      /* napredak: 0 kad grozd ulazi odozdo, 1 kad mu je sredina u sredini ekrana */
-      const progress = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.55 + r.height * 0.5)));
-      const zoom = 0.78 + 0.22 * easeOut(progress);
-      grozd.style.setProperty('--zoom', zoom.toFixed(3));
-      ticking = false;
+  /* --- degustacije: pop-in bobica odozgo prema dolje --- */
+  const grozdEl = document.getElementById('grozd');
+  if (grozdEl) {
+    const bobice = Array.from(grozdEl.querySelectorAll('.grozd-stem, .krug'));
+    function popGrozd() {
+      bobice.sort((a, b) => a.offsetTop - b.offsetTop);
+      bobice.forEach((el, i) => { el.style.transitionDelay = (i * 90) + 'ms'; });
+      grozdEl.classList.add('pop');
+      setTimeout(() => {
+        bobice.forEach(el => { el.style.transitionDelay = ''; });
+        grozdEl.classList.add('pop-done');
+      }, bobice.length * 90 + 700);
     }
-    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-    window.addEventListener('scroll', () => {
-      if (!ticking) { requestAnimationFrame(updateZoom); ticking = true; }
-    }, { passive: true });
-    updateZoom();
-  } else if (grozd) {
-    grozd.style.setProperty('--zoom', '1');
+    if ('IntersectionObserver' in window && !reduced) {
+      const gio = new IntersectionObserver(es => {
+        if (es[0].isIntersecting) { popGrozd(); gio.disconnect(); }
+      }, { threshold: 0.25 });
+      gio.observe(grozdEl);
+    } else {
+      grozdEl.classList.add('pop', 'pop-done');
+    }
   }
 
   /* --- carousel proslave --- */
@@ -85,7 +95,7 @@
     }
     function restart() {
       clearInterval(timer);
-      if (!reduced) timer = setInterval(() => go(idx + 1, false), 5000);
+      if (!reduced) timer = setInterval(() => go(idx + 1, false), 2000);
     }
     carousel.querySelector('.prev').addEventListener('click', () => go(idx - 1, true));
     carousel.querySelector('.next').addEventListener('click', () => go(idx + 1, true));
