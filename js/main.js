@@ -76,7 +76,7 @@
     const track = carousel.querySelector('.car-track');
     const slides = track.children;
     const dotsBox = carousel.querySelector('.car-dots');
-    let idx = 0, timer = null;
+    let idx = 0;
 
     for (let i = 0; i < slides.length; i++) {
       const d = document.createElement('button');
@@ -87,15 +87,11 @@
     }
     const dots = dotsBox.children;
 
-    function go(i, user) {
+    /* bez automatske vrtnje: samo strelice (desktop), točkice i swipe */
+    function go(i) {
       idx = (i + slides.length) % slides.length;
       track.style.transform = 'translateX(-' + idx * 100 + '%)';
       for (let k = 0; k < dots.length; k++) dots[k].classList.toggle('active', k === idx);
-      if (user) restart();
-    }
-    function restart() {
-      clearInterval(timer);
-      if (!reduced) timer = setInterval(() => go(idx + 1, false), 2000);
     }
     carousel.querySelector('.prev').addEventListener('click', () => go(idx - 1, true));
     carousel.querySelector('.next').addEventListener('click', () => go(idx + 1, true));
@@ -110,34 +106,68 @@
       x0 = null;
     }, { passive: true });
 
-    go(0, false); restart();
+    go(0);
   }
 
-  /* --- galerija: parallax scroll grid --- */
-  const ps = document.getElementById('gal-parallax');
-  if (ps && !reduced) {
-    const colA = ps.querySelector('.ps-col-a');
-    const colC = ps.querySelector('.ps-col-c');
-    let psTick = false;
-    function updatePs() {
-      const r = ps.getBoundingClientRect();
-      const vh = window.innerHeight;
-      /* 0 dok grid ulazi odozdo → 1 kad je proscrollan */
-      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      const m = window.innerWidth <= 760 ? 0.25 : 1; /* blaže na mobitelu */
-      /* blagi pomak i nagib — dovoljno za dubinu, bez preklapanja stupaca */
-      const x = 70 * p * m, y = -90 * p * m, rot = 4 * p * m;
-      colA.style.transform = 'translate(' + (-x).toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + (-rot).toFixed(2) + 'deg)';
-      colC.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg)';
-      psTick = false;
+  /* --- galerija: coverflow (po PDF predlošku) --- */
+  const gf = document.getElementById('gflow');
+  if (gf) {
+    const cards = Array.from(gf.querySelectorAll('.gf-item'));
+    const n = cards.length;
+    let ci = 2; /* start: društvo u sredini, kao u PDF-u */
+
+    function relOf(i) {
+      let d = (i - ci + n) % n;
+      return d > n / 2 ? d - n : d;
     }
-    window.addEventListener('scroll', () => {
-      if (!psTick) { requestAnimationFrame(updatePs); psTick = true; }
+    function render() {
+      cards.forEach((c, i) => {
+        const rel = relOf(i);
+        const cls = rel === 0 ? 'gf-c' : rel === -1 ? 'gf-l1' : rel === 1 ? 'gf-r1'
+                  : rel === -2 ? 'gf-l2' : rel === 2 ? 'gf-r2' : rel < 0 ? 'gf-hl' : 'gf-hr';
+        c.className = 'gf-item ' + cls;
+      });
+    }
+    cards.forEach((c, i) => {
+      /* capture: klik na bočnu karticu lista, ne otvara lightbox */
+      c.addEventListener('click', e => {
+        const rel = relOf(i);
+        if (rel !== 0) { e.stopPropagation(); e.preventDefault(); ci = i; render(); }
+      }, true);
+    });
+    gf.querySelector('.gf-prev').addEventListener('click', () => { ci = (ci - 1 + n) % n; render(); });
+    gf.querySelector('.gf-next').addEventListener('click', () => { ci = (ci + 1) % n; render(); });
+    gf.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') { ci = (ci - 1 + n) % n; render(); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { ci = (ci + 1) % n; render(); e.preventDefault(); }
+    });
+    /* swipe */
+    let gx0 = null;
+    gf.addEventListener('touchstart', e => { gx0 = e.touches[0].clientX; }, { passive: true });
+    gf.addEventListener('touchend', e => {
+      if (gx0 === null) return;
+      const dx = e.changedTouches[0].clientX - gx0;
+      if (Math.abs(dx) > 40) { ci = (ci + (dx < 0 ? 1 : -1) + n) % n; render(); }
+      gx0 = null;
     }, { passive: true });
-    window.addEventListener('resize', () => {
-      if (!psTick) { requestAnimationFrame(updatePs); psTick = true; }
-    }, { passive: true });
-    updatePs();
+    render();
+
+    /* ulazna animacija pri prvom dolasku u kadar */
+    if (!reduced && 'IntersectionObserver' in window) {
+      gf.classList.add('gf-pre', 'gf-intro');
+      const io = new IntersectionObserver(es => {
+        if (!es[0].isIntersecting) return;
+        io.disconnect();
+        gf.classList.remove('gf-pre');
+        void gf.offsetWidth; /* reflow: tranzicije kreću iz početnog stanja */
+        gf.classList.add('gf-s1');
+        setTimeout(() => gf.classList.add('gf-s2'), 750);
+        setTimeout(() => gf.classList.remove('gf-s1', 'gf-s2'), 1400);
+        /* strelice tek kad treći val (zadnje dvije) završi */
+        setTimeout(() => gf.classList.remove('gf-intro'), 2050);
+      }, { threshold: .3 });
+      io.observe(gf);
+    }
   }
 
   /* --- lightbox --- */

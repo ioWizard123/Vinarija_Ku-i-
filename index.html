@@ -201,7 +201,11 @@
       <button class="car-arrow prev" aria-label="Prethodna fotografija">&#10094;</button>
       <div class="car-viewport">
         <div class="car-track">
-          <img src="assets/img/proslava-glavna.jpg" alt="Uređeni podrum za proslavu">
+          <img src="assets/img/prostor-stolovi.jpg" alt="Dugi stol s kockastim stolnjacima u podrumu">
+          <img src="assets/img/prostor-lukovi.jpg" alt="Kušaonica s ciglenim lukovima i pogledom na šank">
+          <img src="assets/img/prostor-vinoteka.jpg" alt="Police s vinima uz zidove kušaonice">
+          <img src="assets/img/prostor-sank.jpg" alt="Šank s policama čaša i stolcima od bačvi">
+          <img src="assets/img/prostor-diplome.jpg" alt="Zid s diplomama iznad dugog stola">
           <img src="assets/img/proslava-stol.jpg" alt="Svečano postavljen dugi stol">
           <img src="assets/img/proslava-dekor.jpg" alt="Dekorirani stolovi u kušaonici">
           <img src="assets/img/proslava-baloni.jpg" alt="Proslava s balonima u podrumu">
@@ -209,6 +213,10 @@
       </div>
       <button class="car-arrow next" aria-label="Sljedeća fotografija">&#10095;</button>
       <div class="car-dots" role="tablist"></div>
+      <div class="gf-hint" aria-hidden="true">
+        <span class="gf-hint-text">listaj prstom</span>
+        <span class="gf-hint-line"></span>
+      </div>
     </div>
   </div>
 </section>
@@ -216,32 +224,44 @@
 <!-- ===== GALERIJA ===== -->
 <section class="galerija" id="galerija">
   <h2 class="sec-title light center reveal">Galerija</h2>
-  <div class="pscroll reveal" id="gal-parallax">
-    <div class="ps-col ps-col-a">
-      <figure><img src="assets/img/gal-glazbenici.jpg" alt="Glazbenici sviraju u kušaonici" data-lightbox="Uz dobru kapljicu ide i pjesma" loading="lazy"></figure>
-      <figure><img src="assets/img/grozdje-bijelo.jpg" alt="Zeleno grožđe na trsu" data-lightbox="Graševina u vinogradu" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-berba.jpg" alt="Prikolica puna ubranog grožđa" data-lightbox="Berba — plodovi cijele godine rada" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-drustvo.jpg" alt="Društvo s čašama vina u podrumu" data-lightbox="Degustacija u podrumu" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-cisterne.jpg" alt="Inox cisterne za vino" data-lightbox="Suvremena proizvodnja" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-bacva-dvoriste.jpg" alt="Ukrasna bačva u dvorištu" data-lightbox="Detalji dvorišta" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-grozdje-rozo.jpg" alt="Ružičasto grožđe na trsu" data-lightbox="Grožđe pred berbu" loading="lazy"></figure>
+  <div class="gflow" id="gflow" tabindex="0" aria-label="Galerija fotografija — strelicama ili klikom listajte">
+    <button class="gf-arrow gf-prev" aria-label="Prethodna fotografija">&#10094;</button>
+    <button class="gf-arrow gf-next" aria-label="Sljedeća fotografija">&#10095;</button>
+    <div class="gf-stage">
+      <figure class="gf-item"><img src="assets/img/gal-glazbenici.jpg" alt="Glazbenici sviraju u kušaonici" data-lightbox="Uz dobru kapljicu ide i pjesma" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/grozdje-bijelo.jpg" alt="Zeleno grožđe na trsu" data-lightbox="Graševina u vinogradu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-drustvo.jpg" alt="Društvo s čašama vina u podrumu" data-lightbox="Degustacija u podrumu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-suncobran.jpg" alt="Druženje u dvorištu pod suncobranom" data-lightbox="Druženje u dvorištu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-hrana.jpg" alt="Domaća jela s roštilja" data-lightbox="Domaća kuhinja" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-svecani-stol.jpg" alt="Svečano postavljen dugi stol kroz podrum" data-lightbox="Podrum spreman za slavlje" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-berba.jpg" alt="Prikolica puna ubranog grožđa" data-lightbox="Berba — plodovi cijele godine rada" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-zaprega.jpg" alt="Konjska zaprega ispred vinarije" data-lightbox="Starinski dolazak u vinariju" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/vinograd-pano.jpg" alt="Panorama vinograda Kušić" data-lightbox="Vinogradi Kušić" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-kotlovina.jpg" alt="Gulaš se krčka u kotlu" data-lightbox="Kotlovina — miris domaćeg" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-kusaonica-bacva.jpg" alt="Interijer kušaonice s velikom bačvom" data-lightbox="Kušaonica — svaki kutak priča priču" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-redovi.jpg" alt="Redovi vinove loze pod ljetnim nebom" data-lightbox="Redovi loze u Psarjevu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-cisterne.jpg" alt="Inox cisterne za vino" data-lightbox="Suvremena proizvodnja" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-gablec.jpg" alt="Društvo za stolom uz domaći gablec" data-lightbox="Uz dobru kapljicu i domaći zalogaj" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/police-boca.jpg" alt="Police s bocama u podrumu" data-lightbox="Podrum Kušić" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-drvorez-konji.jpg" alt="Drvorez s konjskom zapregom u podrumu" data-lightbox="Rukotvorine u podrumu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-grozdje-rozo.jpg" alt="Ružičasto grožđe na trsu" data-lightbox="Grožđe pred berbu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-kutak-bacva.jpg" alt="Kutak podruma s velikom bačvom i sombrerom" data-lightbox="Svaki kutak ima priču" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-traktor.jpg" alt="Traktor u vinogradu" data-lightbox="Rad u vinogradu" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-kapljica.jpg" alt="Boca Kapljice na kariranom stolnjaku" data-lightbox="Kapljica — iz podruma Kušić" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/kusaonica.jpg" alt="Kušaonica s dugim stolom" data-lightbox="Kušaonica — do 40 osoba" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-bacva-ulaz.jpg" alt="Stara bačva pod krovićem ispred vinarije" data-lightbox="Bačva koja pozdravlja goste" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-bacva-dvoriste.jpg" alt="Ukrasna bačva u dvorištu" data-lightbox="Detalji dvorišta" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-pod-suncobranima.jpg" alt="Gosti se poslužuju kotlovinom pod suncobranom" data-lightbox="Kad se skupi dobra ekipa" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-vinograd-brijeg.jpg" alt="Vinograd na brijegu" data-lightbox="Vinogradi zelinskoga kraja" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/grozdje-loza.jpg" alt="Grožđe na lozi" data-lightbox="Vinograd" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-gradele.jpg" alt="Meso na gradelama" data-lightbox="S gradela na stol" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-objekt-vecer.jpg" alt="Vinarija u večernjim satima" data-lightbox="Vinarija u sumrak" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-stare-boce.jpg" alt="Arhivske boce vina" data-lightbox="Arhiva starih berbi" loading="lazy"></figure>
+      <figure class="gf-item"><img src="assets/img/gal-bacva-noc.jpg" alt="Ulaz s bačvom noću" data-lightbox="Podrum pod zvijezdama" loading="lazy"></figure>
     </div>
-    <div class="ps-col ps-col-b">
-      <figure><img src="assets/img/vinograd-pano.jpg" alt="Panorama vinograda Kušić" data-lightbox="Vinogradi Kušić" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-suncobran.jpg" alt="Druženje u dvorištu pod suncobranom" data-lightbox="Druženje u dvorištu" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-kusaonica-bacva.jpg" alt="Interijer kušaonice s velikom bačvom" data-lightbox="Kušaonica — svaki kutak priča priču" loading="lazy"></figure>
-      <figure><img src="assets/img/police-boca.jpg" alt="Police s bocama u podrumu" data-lightbox="Podrum Kušić" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-vinograd-brijeg.jpg" alt="Vinograd na brijegu" data-lightbox="Vinogradi zelinskoga kraja" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-objekt-vecer.jpg" alt="Vinarija u večernjim satima" data-lightbox="Vinarija u sumrak" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-stare-boce.jpg" alt="Arhivske boce vina" data-lightbox="Arhiva starih berbi" loading="lazy"></figure>
-    </div>
-    <div class="ps-col ps-col-c">
-      <figure><img src="assets/img/gal-hrana.jpg" alt="Domaća jela s roštilja" data-lightbox="Domaća kuhinja" loading="lazy"></figure>
-      <figure><img src="assets/img/grozdje-loza.jpg" alt="Grožđe na lozi" data-lightbox="Vinograd" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-traktor.jpg" alt="Traktor u vinogradu" data-lightbox="Rad u vinogradu" loading="lazy"></figure>
-      <figure><img src="assets/img/kusaonica.jpg" alt="Kušaonica s dugim stolom" data-lightbox="Kušaonica — do 40 osoba" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-gradele.jpg" alt="Meso na gradelama" data-lightbox="S gradela na stol" loading="lazy"></figure>
-      <figure><img src="assets/img/gal-bacva-noc.jpg" alt="Ulaz s bačvom noću" data-lightbox="Podrum pod zvijezdama" loading="lazy"></figure>
+    <div class="gf-hint" aria-hidden="true">
+      <span class="gf-hint-text">listaj prstom</span>
+      <span class="gf-hint-line"></span>
     </div>
   </div>
 </section>

@@ -231,9 +231,9 @@ a{color:inherit}
 .car-track{display:flex;transition:transform .6s cubic-bezier(.6,.05,.25,1)}
 .car-track img{width:100%;flex:0 0 100%;aspect-ratio:16/10.5;object-fit:cover}
 .car-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;background:rgba(28,4,4,.55);color:var(--cream);
-  border:0;font-size:1.3rem;width:44px;height:44px;border-radius:50%;cursor:pointer;transition:background .25s}
+  border:1px solid rgba(255,248,237,.3);font-size:1.3rem;width:44px;height:44px;border-radius:50%;cursor:pointer;transition:background .25s}
 .car-arrow:hover{background:rgba(28,4,4,.9)}
-.car-arrow.prev{left:.8rem}.car-arrow.next{right:.8rem}
+.car-arrow.prev{left:-64px}.car-arrow.next{right:-64px}
 @media (max-width:1024px){.car-arrow{display:none}}
 .car-dots{display:flex;justify-content:center;gap:1rem;margin-top:1.2rem}
 .car-dots button{width:34px;height:2px;border:0;background:rgba(255,248,237,.35);cursor:pointer;transition:background .3s}
@@ -242,12 +242,55 @@ a{color:inherit}
 /* ===== GALERIJA (parallax scroll grid) ===== */
 .galerija{background:var(--maroon);padding:3.5rem 0 6rem;overflow:hidden;overflow:clip}
 .galerija .sec-title{margin-bottom:3rem}
-.pscroll{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2rem;max-width:1000px;margin:0 auto;padding:0 1.5rem}
-.ps-col{display:grid;gap:2.2rem;align-content:start}
-.ps-col-a,.ps-col-c{will-change:transform}
-.ps-col figure{margin:0}
-.ps-col img{display:block;width:100%;height:20rem;object-fit:cover;border-radius:8px;cursor:zoom-in;
+/* coverflow traka po PDF predlošku: velika slika u sredini, manje sa strana.
+   --gfw = širina središnje kartice; sve se skalira kontinuirano sa širinom ekrana */
+.gflow{position:relative;outline:none;--gfw:clamp(140px,30vw,465px)}
+.gf-stage{position:relative;height:calc(var(--gfw)*1.3334 + 1rem)}
+.gf-item{position:absolute;top:50%;left:50%;width:var(--gfw);aspect-ratio:3/4;margin:0;
+  transform:translate(-50%,-50%) scale(.4);opacity:0;pointer-events:none;z-index:1;
+  transition:transform .55s cubic-bezier(.6,.05,.25,1),opacity .4s ease}
+.gf-item img{width:100%;height:100%;object-fit:cover;display:block;border-radius:3px;
   box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.gf-c{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto;z-index:5}
+.gf-c img{cursor:zoom-in}
+.gf-l1{transform:translate(calc(-50% - 94%),-50%) scale(.78);opacity:1;pointer-events:auto;cursor:pointer;z-index:4}
+.gf-r1{transform:translate(calc(-50% + 94%),-50%) scale(.78);opacity:1;pointer-events:auto;cursor:pointer;z-index:4}
+.gf-l2{transform:translate(calc(-50% - 156%),-50%) scale(.5);opacity:1;pointer-events:auto;cursor:pointer;z-index:3}
+.gf-r2{transform:translate(calc(-50% + 156%),-50%) scale(.5);opacity:1;pointer-events:auto;cursor:pointer;z-index:3}
+.gf-hl{transform:translate(calc(-50% - 190%),-50%) scale(.4)}
+.gf-hr{transform:translate(calc(-50% + 190%),-50%) scale(.4)}
+/* strelice galerije — izvan vanjskih slika */
+.gf-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;background:rgba(28,4,4,.55);color:var(--cream);
+  border:1px solid rgba(255,248,237,.3);font-size:1.3rem;width:44px;height:44px;border-radius:50%;cursor:pointer;
+  transition:background .25s,opacity .4s}
+.gf-arrow:hover{background:rgba(28,4,4,.9)}
+.gf-prev{left:max(.5rem,calc(50% - var(--gfw)*1.81 - 50px))}
+.gf-next{right:max(.5rem,calc(50% - var(--gfw)*1.81 - 50px))}
+/* strelice se pojave tek kad i zadnje dvije slike sjednu na mjesto */
+.gf-intro .gf-arrow,.gf-intro .gf-hint{opacity:0;pointer-events:none}
+/* tablet/mobitel: bez strelica, mali "listaj prstom" indikator (kao hero "istraži") */
+.gf-hint{display:none;transition:opacity .4s}
+@media (max-width:1024px){
+  .gf-arrow{display:none}
+  .gf-hint{display:flex;flex-direction:column;align-items:center;gap:.45rem;margin-top:1.2rem}
+  .gf-hint-text{font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;color:var(--cream);opacity:.8}
+  .gf-hint-line{width:64px;height:1px;position:relative;overflow:hidden;background:rgba(255,248,237,.22)}
+  .gf-hint-line::after{content:'';position:absolute;left:0;top:0;height:100%;width:45%;background:var(--cream);
+    animation:gfSwipe 1.8s ease-in-out infinite}
+}
+@keyframes gfSwipe{0%{transform:translateX(-110%)}55%,100%{transform:translateX(240%)}}
+/* ulazna animacija: sredina se uvuče odozdo, bočne se izvuku iza nje u dva vala */
+.gf-pre .gf-item{transition:none;opacity:0}
+.gf-pre .gf-c{transform:translate(-50%,-30%) scale(1)}
+.gf-pre .gf-l1,.gf-pre .gf-r1,.gf-pre .gf-l2,.gf-pre .gf-r2{transform:translate(-50%,-50%) scale(.78)}
+.gf-s1 .gf-l1,.gf-s1 .gf-r1{transform:translate(-50%,-50%) scale(.78);opacity:0}
+.gf-s1 .gf-l2,.gf-s1 .gf-r2{transform:translate(-50%,-50%) scale(.5);opacity:0}
+/* drugi val: l1/r1 izlaze na svoja mjesta, l2/r2 još čekaju iza središnje (odmah neprozirni, ali pokriveni) */
+.gf-s2 .gf-l1{transform:translate(calc(-50% - 94%),-50%) scale(.78);opacity:1}
+.gf-s2 .gf-r1{transform:translate(calc(-50% + 94%),-50%) scale(.78);opacity:1}
+/* l2/r2 putuju skriveni iza l1/r1 do njihovih mjesta, pa se u trećem valu izvuku iz njih */
+.gf-s2 .gf-l2{transform:translate(calc(-50% - 94%),-50%) scale(.5);opacity:1;transition:transform .55s cubic-bezier(.6,.05,.25,1)}
+.gf-s2 .gf-r2{transform:translate(calc(-50% + 94%),-50%) scale(.5);opacity:1;transition:transform .55s cubic-bezier(.6,.05,.25,1)}
 
 /* ===== PRIZNANJA ===== */
 .priznanja{background:var(--maroon);padding:2rem 0 6rem;overflow:hidden;overflow:clip}
@@ -455,9 +498,7 @@ a{color:inherit}
   .arch{width:min(450px,94vw)}
   .wine{margin-top:2.5rem}
   .prica-cols,.proslave-cols,.kontakt-cols{grid-template-columns:1fr;gap:1.4rem}
-  .pscroll{gap:1rem;padding:0 1rem}
-  .ps-col{gap:1rem}
-  .ps-col img{height:9.5rem;border-radius:6px}
+  .gf-arrow{width:38px;height:38px;font-size:1.1rem}
   .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:58px;gap:.6rem}
   .bb-feat{grid-column:span 2;grid-row:span 5}
   .bb-3,.bb-4{grid-row:span 3}
