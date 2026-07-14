@@ -364,7 +364,7 @@ a{color:inherit}
 }
 
 /* ===== KONTAKT (Pozivamo vas + kontakt spojeno) ===== */
-.kontakt{background:var(--cream);color:var(--ink);padding:0 0 5rem}
+.kontakt{background:var(--cream-soft);color:var(--ink);padding:0 0 5rem}
 
 .kontakt-hero{text-align:center;padding:6rem 1.25rem 5rem;display:flex;flex-direction:column;align-items:center;gap:1.6rem;
   position:relative}
@@ -408,7 +408,7 @@ a{color:inherit}
 .footer-name{font-family:var(--serif);font-size:1.35rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
 .footer-est{font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;opacity:.5}
 
-.footer-divider{height:1px;background:rgba(36,16,9,.12);margin:0 0 2.4rem}
+.footer-divider{height:1px;background:rgba(36,16,9,.12);margin:0}
 
 .footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-bottom:2.4rem}
 .footer-col-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;opacity:.45;margin-bottom:.9rem;font-weight:500}
