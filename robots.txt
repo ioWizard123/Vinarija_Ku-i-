@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Interni radni materijal — nije za indeksiranje
+Disallow: /_contact.html
+
+Sitemap: https://vinarija-kusic.vercel.app/sitemap.xml

@@ -3,14 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vinarija Kušić — Tradicija u čaši</title>
-<meta name="description" content="Vina Kušić — obiteljska vinarija iz Psarjeva Donjeg, Sv. Ivan Zelina. Degustacije, proslave i tradicija u čaši.">
+<title>Vinarija Kušić — degustacije i proslave | Sveti Ivan Zelina</title>
+<meta name="description" content="Obiteljska vinarija u Psarjevu Donjem kraj Sv. Ivana Zeline. Graševina i Kapljica iz podruma njegovanog od 1917., degustacije i proslave do 40 osoba.">
 <meta name="theme-color" content="#300000">
 <link rel="icon" type="image/png" href="assets/img/grb.png">
+
+<!-- NAPOMENA: pri prelasku na vlastitu domenu promijeni URL na 4 mjesta:
+     canonical, og:url, og:image i sitemap.xml -->
+<link rel="canonical" href="https://vinarija-kusic.vercel.app/">
+
+<!-- Open Graph (WhatsApp, Facebook, Viber) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vinarija Kušić">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:url" content="https://vinarija-kusic.vercel.app/">
+<meta property="og:title" content="Vinarija Kušić — tradicija u čaši od 1917.">
+<meta property="og:description" content="Obiteljska vinarija u Psarjevu Donjem kraj Sv. Ivana Zeline. Degustacije, proslave i vina njegovana u podrumu iz 1930.">
+<meta property="og:image" content="https://vinarija-kusic.vercel.app/assets/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Podrum Vinarije Kušić">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vinarija Kušić — tradicija u čaši od 1917.">
+<meta name="twitter:description" content="Obiteljska vinarija u Psarjevu Donjem kraj Sv. Ivana Zeline. Degustacije, proslave i vina njegovana u podrumu iz 1930.">
+<meta name="twitter:image" content="https://vinarija-kusic.vercel.app/assets/img/og-cover.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Strukturirani podaci — lokalni SEO (Google Maps / lokalni rezultati).
+     TODO: dodati "geo" koordinate i "openingHoursSpecification" kad ih klijent potvrdi. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Winery",
+  "@id": "https://vinarija-kusic.vercel.app/#vinarija",
+  "name": "Vinarija Kušić",
+  "alternateName": "Vina Kušić",
+  "description": "Obiteljska vinarija iz Psarjeva Donjeg kraj Sv. Ivana Zeline. Vinogradarska tradicija od 1917. godine, vina Graševina i Kapljica, degustacije i proslave u podrumu iz 1930.",
+  "url": "https://vinarija-kusic.vercel.app/",
+  "logo": "https://vinarija-kusic.vercel.app/assets/img/grb.png",
+  "image": "https://vinarija-kusic.vercel.app/assets/img/og-cover.jpg",
+  "foundingDate": "1917",
+  "priceRange": "$$",
+  "currenciesAccepted": "EUR",
+  "email": "ivicakusic1984@gmail.com",
+  "telephone": "+385915315429",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Psarjevo Donje 11",
+    "addressLocality": "Sveti Ivan Zelina",
+    "addressRegion": "Zagrebačka županija",
+    "postalCode": "10380",
+    "addressCountry": "HR"
+  },
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "telephone": "+385915315429",
+    "email": "ivicakusic1984@gmail.com",
+    "availableLanguage": "hr"
+  }, {
+    "@type": "ContactPoint",
+    "contactType": "reservations",
+    "telephone": "+385916012465",
+    "availableLanguage": "hr"
+  }],
+  "makesOffer": [{
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Product",
+      "name": "Graševina",
+      "category": "Bijelo vino",
+      "description": "Vino zlatne boje, bogatog mirisa i prepoznatljivih mednih nota."
+    }
+  }, {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Product",
+      "name": "Kapljica",
+      "category": "Bijelo vino",
+      "description": "Vino nježne zlatne boje, ugodnog mirisa i skladnog, pitkog okusa."
+    }
+  }],
+  "amenityFeature": [{
+    "@type": "LocationFeatureSpecification",
+    "name": "Kušaonica",
+    "value": "Kapacitet do 40 osoba"
+  }, {
+    "@type": "LocationFeatureSpecification",
+    "name": "Degustacije vina",
+    "value": true
+  }, {
+    "@type": "LocationFeatureSpecification",
+    "name": "Proslave i druženja",
+    "value": true
+  }]
+}
+</script>
 </head>
 <body>
 
@@ -43,7 +136,7 @@
   </div>
 
   <div class="hero-mid">
-    <p class="hero-tagline">Tradicija u <span class="hero-casa">čaši</span></p>
+    <h1 class="hero-tagline"><span class="vh">Vinarija Kušić, Sveti Ivan Zelina — </span>Tradicija u <span class="hero-casa">čaši</span></h1>
     <div class="hero-cta-row">
       <a class="hero-cta" href="#ponuda">Pogledaj ponudu</a>
       <a class="hero-cta hero-cta-ghost" href="#kontakt">Kontakt</a>
@@ -354,7 +447,7 @@
       <div class="kontakt-info-divider" aria-hidden="true"></div>
       <div class="kontakt-info-col">
         <span class="kontakt-info-label">E-mail</span>
-        <a href="mailto:Ivicakusic1984@gmail.com">Ivicakusic1984@gmail.com</a>
+        <a href="mailto:ivicakusic1984@gmail.com">ivicakusic1984@gmail.com</a>
       </div>
     </div>
 
@@ -392,7 +485,7 @@
   <button class="lb-close" aria-label="Zatvori">&times;</button>
   <button class="lb-prev" aria-label="Prethodna">&#10094;</button>
   <figure>
-    <img id="lb-img" src="" alt="">
+    <img id="lb-img" alt="">
     <figcaption id="lb-cap"></figcaption>
   </figure>
   <button class="lb-next" aria-label="Sljedeća">&#10095;</button>

@@ -229,7 +229,7 @@
   function closeLb() {
     lb.classList.remove('open');
     document.body.style.overflow = '';
-    setTimeout(() => { lb.hidden = true; lbImg.src = ''; }, 300);
+    setTimeout(() => { lb.hidden = true; lbImg.removeAttribute('src'); }, 300);
   }
 
   imgItems.forEach(el => el.addEventListener('click', () => {
