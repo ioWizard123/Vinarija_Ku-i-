@@ -302,58 +302,70 @@ a{color:inherit}
 .gf-s2 .gf-l2{transform:translate(calc(-50% - 94%),-50%) scale(.5);opacity:1;transition:transform .55s cubic-bezier(.6,.05,.25,1)}
 .gf-s2 .gf-r2{transform:translate(calc(-50% + 94%),-50%) scale(.5);opacity:1;transition:transform .55s cubic-bezier(.6,.05,.25,1)}
 
-/* ===== PRIZNANJA (marquee) ===== */
+/* ===== PRIZNANJA (OGL gallery) ===== */
 .priznanja{background:var(--maroon);padding:5rem 0 6rem;overflow:hidden;position:relative}
 @media (min-width:1025px){.priznanja{background:#3a0606}}
 .priznanja .sec-title{margin-bottom:1.6rem}
 .priznanja-sep{color:var(--gold);font-weight:400;margin:0 .1em}
 .priznanja-text{max-width:560px;margin:0 auto 3.5rem;text-align:center;font-size:.98rem;opacity:.85}
 
-/* fade rubovi lijevo/desno */
-.marquee-wrap{--mq-fade:clamp(40px,8vw,120px);position:relative}
-.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:var(--mq-fade);z-index:2;pointer-events:none}
-.marquee-wrap::before{left:0;background:linear-gradient(to right,var(--maroon),transparent)}
-.marquee-wrap::after{right:0;background:linear-gradient(to left,var(--maroon),transparent)}
-@media (min-width:1025px){
-  .marquee-wrap::before{background:linear-gradient(to right,#3a0606,transparent)}
-  .marquee-wrap::after{background:linear-gradient(to left,#3a0606,transparent)}
+/* OGL canvas container */
+#pgallery{
+  width:100%;
+  height:clamp(300px,52vw,580px);
+  position:relative;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+}
+#pgallery:active{cursor:grabbing}
+#pgallery canvas{display:block;width:100%!important;height:100%!important}
+
+/* swipe hint */
+.pgallery-hint{
+  position:absolute;
+  bottom:1.4rem;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  pointer-events:none;
+  z-index:4;
+  transition:opacity .5s ease;
+}
+.pgallery-hint--gone{opacity:0}
+
+/* finger icon: visible only on mobile/tablet */
+.pgallery-hint-icon{
+  display:none;
+  width:34px;height:34px;flex-shrink:0;
+  animation:hintSwipe 1.7s ease-in-out infinite;
+}
+@keyframes hintSwipe{
+  0%,100%{transform:translateX(0)}
+  35%{transform:translateX(-8px)}
+  65%{transform:translateX(8px)}
 }
 
-.marquee-row{overflow:hidden;padding:.6rem 0}
-.marquee-track{display:flex;gap:1.2rem;width:max-content;will-change:transform}
-
-/* animacije */
-@keyframes mqLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes mqRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.marquee-left{animation:mqLeft 40s linear infinite}
-.marquee-right{animation:mqRight 44s linear infinite}
-
-/* pauza na hover/focus unutar reda */
-.marquee-row:hover .marquee-track,
-.marquee-row:focus-within .marquee-track{animation-play-state:paused}
-
-/* kartica */
-.mq-card{background:none;border:none;padding:0;cursor:zoom-in;border-radius:6px;overflow:hidden;
-  flex:0 0 auto;width:clamp(160px,18vw,260px);aspect-ratio:3/4;
-  box-shadow:0 8px 28px rgba(0,0,0,.45);
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease}
-.mq-card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
-.mq-card:hover,.mq-card:focus-visible{transform:scale(1.06) translateY(-6px);box-shadow:0 18px 48px rgba(0,0,0,.6);outline:none}
-.mq-card:focus-visible{box-shadow:0 0 0 3px var(--gold),0 18px 48px rgba(0,0,0,.6)}
-
-@media (prefers-reduced-motion:reduce){
-  .marquee-left,.marquee-right{animation:none}
-  .marquee-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .marquee-track{width:auto;flex-wrap:nowrap}
+/* desktop text */
+.pgallery-hint-text{
+  font-family:var(--sans);
+  font-size:.7rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--cream);
+  opacity:.5;
 }
 
-@media (max-width:760px){
-  .marquee-left{animation-duration:28s}
-  .marquee-right{animation-duration:32s}
-  .mq-card{width:clamp(120px,36vw,200px)}
-  .marquee-row{padding:.4rem 0}
-  .marquee-track{gap:.75rem}
+@media (max-width:1024px){
+  .pgallery-hint-icon{display:block}
+  .pgallery-hint-text{display:none}
+  #pgallery{height:clamp(260px,62vw,440px)}
   .priznanja{padding:3.5rem 0 4rem}
+}
+@media (max-width:480px){
+  #pgallery{height:clamp(220px,75vw,320px)}
 }
 
 /* ===== KONTAKT (Pozivamo vas + kontakt spojeno) ===== */
