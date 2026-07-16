@@ -199,18 +199,30 @@
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
   const lbCap = document.getElementById('lb-cap');
-  const items = Array.from(document.querySelectorAll('[data-lightbox]'));
-  /* grupiranje po sekciji: klik na diplomu lista samo diplome, na galeriju samo galeriju… */
+
+  /* slike s data-lightbox atributom (img elementi) + mq-card gumbi koji imaju data-lightbox */
+  const imgItems = Array.from(document.querySelectorAll('img[data-lightbox]'));
+  /* mq-card: uzimamo samo originale (bez aria-hidden duplikata) */
+  const mqCards = Array.from(document.querySelectorAll('.mq-card[data-lightbox]'));
+
   const groupOf = el => { const s = el.closest('section'); return (s && s.id) || 'stranica'; };
-  let lbList = items;
+  let lbList = [];
   let lbIdx = 0;
 
   function openLb(i) {
     lbIdx = (i + lbList.length) % lbList.length;
     const el = lbList[lbIdx];
-    lbImg.src = el.src;
-    lbImg.alt = el.alt || '';
-    lbCap.textContent = el.getAttribute('data-lightbox') || '';
+    /* el može biti <img> ili <button.mq-card> */
+    if (el.tagName === 'IMG') {
+      lbImg.src = el.src;
+      lbImg.alt = el.alt || '';
+      lbCap.textContent = el.getAttribute('data-lightbox') || '';
+    } else {
+      const img = el.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || '';
+      lbCap.textContent = el.getAttribute('data-lightbox') || '';
+    }
     lb.hidden = false;
     requestAnimationFrame(() => lb.classList.add('open'));
     document.body.style.overflow = 'hidden';
@@ -220,10 +232,16 @@
     document.body.style.overflow = '';
     setTimeout(() => { lb.hidden = true; lbImg.src = ''; }, 300);
   }
-  items.forEach(el => el.addEventListener('click', () => {
+
+  imgItems.forEach(el => el.addEventListener('click', () => {
     const g = groupOf(el);
-    lbList = items.filter(x => groupOf(x) === g);
+    lbList = imgItems.filter(x => groupOf(x) === g);
     openLb(lbList.indexOf(el));
+  }));
+
+  mqCards.forEach(el => el.addEventListener('click', () => {
+    lbList = mqCards;
+    openLb(mqCards.indexOf(el));
   }));
   lb.querySelector('.lb-close').addEventListener('click', closeLb);
   lb.querySelector('.lb-prev').addEventListener('click', e => { e.stopPropagation(); openLb(lbIdx - 1); });
