@@ -1,2 +1,10 @@
 .vercel
 .env*
+
+# Alatni / lokalni folderi
+.claude/
+.claude-flow/
+
+# Zaseban (stari) repo i izvorni materijali — ne u glavni repo
+site/
+Vinarija Kusic-20260707T183216Z-3-001/

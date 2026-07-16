@@ -109,12 +109,11 @@
     go(0);
   }
 
-  /* --- galerija: coverflow (po PDF predlošku) --- */
-  const gf = document.getElementById('gflow');
-  if (gf) {
+  /* --- coverflow (galerija + priznanja, po PDF predlošku) --- */
+  document.querySelectorAll('.gflow').forEach(gf => {
     const cards = Array.from(gf.querySelectorAll('.gf-item'));
     const n = cards.length;
-    let ci = 2; /* start: društvo u sredini, kao u PDF-u */
+    let ci = gf.id === 'gflow' ? 2 : 0; /* galerija: društvo u sredini, kao u PDF-u */
 
     function relOf(i) {
       let d = (i - ci + n) % n;
@@ -168,7 +167,7 @@
       }, { threshold: .3 });
       io.observe(gf);
     }
-  }
+  });
 
   /* --- priznanja: parallax na slikama diploma --- */
   const awardMedia = Array.from(document.querySelectorAll('.award-media'));
@@ -325,7 +324,7 @@
   /* --- CTA typewriter --- */
   const tw = document.getElementById('cta-typewriter');
   if (tw) {
-    const phrase = 'Svaka čaša priča priču.';
+    const phrase = 'Javite nam se';
     const cursor = document.createElement('span');
     cursor.className = 'cta-cursor';
     cursor.setAttribute('aria-hidden', 'true');
