@@ -34,9 +34,24 @@ a{color:inherit}
 .sec-title.light{color:var(--cream)}
 .sec-title.center{text-align:center}
 .script{font-family:var(--script);font-size:1.5em;font-weight:400;margin:0 .04em}
+/* "v" u "Više od vinarije": pri 1.5em tinta mu je tek 73% x-visine okolnog
+   Timesa pa slovo optički propada; 2.05em ga izjednači s x-visinom.
+   Ciljano samo na "v" — "p" u "Naša priča" ima rep koji zamahuje ulijevo pod
+   prethodnu riječ (dizajnerski swash) i povećanje bi ga zabilo u tekst. */
+.script[data-l="v"]{font-size:2.05em}
 .script-initial{font-family:var(--script);font-size:2.4em;line-height:0;vertical-align:-.32em;margin-right:.05em;color:var(--ink)}
 .script-initial.light{color:var(--cream)}
-.lead-dash{display:inline-block;width:9rem;max-width:22vw;height:1px;background:currentColor;vertical-align:middle;margin:0 .8rem;opacity:.75}
+/* Monsieur La Doulaise: ukrasni repovi velikih slova sežu izvan advance širine
+   (P +0.79em, D +0.44em, G +0.27em), pa bi se preklopili s tekstom.
+   Margina = prelijevanje + 0.104em, čime zazor ispadne točno ¼ em teksta
+   (four-per-em-space) u svakom kontekstu. Po slovu jer je prelijevanje
+   svojstvo pojedinog glifa. */
+.script-initial[data-l="P"]{margin-right:.89em}
+.script-initial[data-l="D"]{margin-right:.54em}
+.script-initial[data-l="G"]{margin-right:.37em}
+/* 7rem (bilo 9rem) — skraćeno za ~onoliko koliko je razmak iza inicijala dodao,
+   da ukupna dužina retka ostane ista */
+.lead-dash{display:inline-block;width:7rem;max-width:22vw;height:1px;background:currentColor;vertical-align:middle;margin:0 .8rem;opacity:.75}
 
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;min-height:100lvh;display:flex;flex-direction:column}
@@ -154,6 +169,16 @@ a{color:inherit}
   .wine[data-wine="grasevina"]{padding-right:var(--pon-intrude)}
   .wine[data-wine="kapljica"]{padding-left:var(--pon-intrude)}
 }
+/* Veće boce na cijelom desktopu (≥1025px). Tekstualni stupac stisnut na 104px
+   (najduža riječ „prepoznatljivih" je 99px → 5px zazora, nema prelijevanja),
+   boca uzme ostatak preko 1fr. Boca +22% na 1440px, +17% na 1920px. Blurb ide
+   do 5 redaka — u redu jer boca dominira. Usput popravlja i postojeće prelijevanje
+   teksta na ~1100px (originalni raspored je tamo stiskao tekst ispod širine riječi). */
+@media (min-width:1025px){
+  .wine{grid-template-columns:minmax(0,1fr) 104px}
+  .wine[data-wine="kapljica"]{grid-template-columns:104px minmax(0,1fr)}
+  .bottle-img{width:clamp(150px,86cqw,460px)}
+}
 @media (prefers-reduced-motion:reduce){
   .wine .bottle-wrap,.wine .wine-name,.wine .wine-blurb{opacity:1;transform:none;transition:none}
   .wine .bottle-wrap::before{opacity:.9;transition:none}
@@ -202,11 +227,13 @@ a{color:inherit}
 .text-krug{background:#fbecc9;color:var(--ink);font-size:2.4cqw;padding:9%;line-height:1.55}
 @media (max-width:760px){
   .title-krug{font-size:5.6cqw}
-  /* tekstualni krug na mobitelu: cijela rečenica uredno stane, bez rezanja */
-  .text-krug{font-size:2.55cqw;padding:6%;line-height:1.3}
+  /* Tekstualni krug na mobitelu. Mjereno red-po-red naspram kružnice:
+     pri 3.4cqw najdalji kut retka izlazi iz kruga i tekst se nevidljivo
+     reže (overflow:hidden + border-radius). 3.1cqw ostavlja ~6px rezerve. */
+  .text-krug{font-size:3.1cqw;padding:5%;line-height:1.27}
 }
 @media (max-width:480px){
-  .text-krug{font-size:2.4cqw;padding:5%;line-height:1.25}
+  .text-krug{font-size:3.1cqw;padding:5%;line-height:1.27}
 }
 .prazni{background:var(--maroon-deep)}
 .prazni-t{background:#fbecc9}
@@ -370,9 +397,8 @@ a{color:inherit}
 
 .footer-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:1.8rem;gap:1rem;flex-wrap:wrap}
 .footer-copy{font-size:.75rem;opacity:.4;letter-spacing:.04em}
-/* made by promogen — slika iz priloga */
-.footer-credit-link{display:flex;align-items:center;opacity:.7;transition:opacity .25s}
-.footer-credit-link:hover{opacity:1}
+/* made by promogen — slika iz priloga; uvijek 100% vidljivo, bez hover efekta */
+.footer-credit-link{display:flex;align-items:center}
 .footer-credit-badge{height:52px;width:auto;display:block}
 
 @media(max-width:760px){
@@ -409,7 +435,9 @@ a{color:inherit}
   .ponuda{min-height:0;padding:0 1rem 3.5rem}
   .ponuda-inner{grid-template-columns:1fr;justify-items:center;gap:1rem}
   /* arch ide malo preko header sekcije i na mobitelu */
-  .arch{order:1;width:min(560px,94vw);margin-top:-2.6rem}
+  /* 100% (a ne 94vw) — .ponuda već ima 1rem bočnog paddinga, pa je vw šire od
+     raspoloživog stupca i luk bi stršio desno i ispao izvan centra */
+  .arch{order:1;width:min(560px,100%);margin-top:-2.6rem}
   /* veći razmak između slike boce i teksta */
   .wine{order:2;display:grid;grid-template-columns:auto auto;align-items:center;gap:0 clamp(1.4rem,7cqw,2.8rem);text-align:left;margin-top:2.8rem;justify-content:center}
   .bottle-img{width:clamp(118px,28cqw,270px)}
@@ -457,6 +485,8 @@ a{color:inherit}
   .hero-mid{padding-top:14vh}
 }
 @media (max-width:760px){
+  /* naslov je na mobitelu apsolutno manji pa "v" treba nešto više prisutnosti */
+  .script[data-l="v"]{font-size:2.4em}
   .nav-toggle{display:block;position:fixed;right:1rem;top:calc(1rem + env(safe-area-inset-top,0px));background:rgba(28,4,4,.6);
     width:44px;height:44px;border-radius:50%;padding:14px 10px;
     opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s,background .25s}
@@ -469,7 +499,7 @@ a{color:inherit}
   .nav .nav-logo{display:block;padding:0;border:0}
   .nav .nav-logo img{width:86px;margin:0 auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
   .brand{display:flex;align-items:center;justify-content:center;gap:.8rem}
-  .arch{width:min(450px,94vw)}
+  .arch{width:min(450px,100%)}
   .wine{margin-top:2.5rem}
   .prica-cols,.proslave-cols,.kontakt-cols{grid-template-columns:1fr;gap:1.4rem}
   .gf-arrow{width:38px;height:38px;font-size:1.1rem}
@@ -498,7 +528,7 @@ a{color:inherit}
   .topbar{padding:1.1rem 1rem 0}
   .brand{gap:.6rem}
   .brand-word{letter-spacing:.16em}
-  .arch{width:min(360px,94vw)}
+  .arch{width:min(360px,100%)}
   .wine{margin-top:2rem}
   .container{padding:0 1.1rem}
   .lead-dash{width:3.5rem;margin:0 .5rem}
