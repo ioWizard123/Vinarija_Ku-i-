@@ -52,6 +52,10 @@ a{color:inherit}
 /* 7rem (bilo 9rem) — skraćeno za ~onoliko koliko je razmak iza inicijala dodao,
    da ukupna dužina retka ostane ista */
 .lead-dash{display:inline-block;width:7rem;max-width:22vw;height:1px;background:currentColor;vertical-align:middle;margin:0 .8rem;opacity:.75}
+/* Dekorativna crtica iza „Proslave u vinskom ambijentu" (prije <br>): dok je
+   proslave stupac uži od ~856px ona se prelomi sama u novi red i izgleda čudno.
+   Sakrij je do desktop granice (≥1025px stupac je dovoljno širok da stane inline). */
+@media (max-width:1024px){.proslave-cols .lead-dash{display:none}}
 
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;min-height:100lvh;display:flex;flex-direction:column}
@@ -118,7 +122,7 @@ a{color:inherit}
 /* ===== PONUDA ===== */
 .ponuda{position:relative;padding:2.5rem 1rem;background:var(--maroon);min-height:100vh;min-height:100svh;
   display:flex;align-items:center}
-.ponuda-inner{width:100%;max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr 1fr;
+.ponuda-inner{width:100%;max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1.75fr 1fr;
   gap:1.5rem;align-items:center}
 .arch{position:relative;z-index:4;width:min(100%,calc((100svh - 5.5rem)/1.36));margin:0 auto;container-type:inline-size}
 /* slika_ponuda_vina — gotova kompozicija (Laura/Ponuda.png) */
@@ -135,8 +139,8 @@ a{color:inherit}
 /* nove fotografije boca (iz priloga) — nisu ravne i imaju ugrađeni odraz */
 .bottle-img{width:clamp(166px,15.2vw,222px);width:clamp(150px,62cqw,385px);filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
 /* bez ukrasa grožđa iza boca */
-.wine-name{font-family:var(--serif);font-size:clamp(1.3rem,6cqw,2.3rem);margin-top:0;letter-spacing:.05em}
-.wine-blurb{font-size:clamp(.85rem,3.6cqw,1.3rem);opacity:.9;margin:.35rem 0 0}
+.wine-name{font-family:var(--serif);font-size:clamp(1.45rem,6cqw,2.4rem);margin-top:0;letter-spacing:.05em}
+.wine-blurb{font-size:clamp(.92rem,3.6cqw,1.35rem);opacity:.9;margin:.35rem 0 0}
 
 /* scroll sekvenca ponude (svi uređaji): sredina odmah → lijeva boca → tekst+grožđe → desna boca → tekst+grožđe */
 .wine.reveal{opacity:1;transform:none;transition:none}
@@ -160,24 +164,26 @@ a{color:inherit}
   .ponuda{min-height:calc(100svh - 6vh)}
   .ponuda-inner{margin-top:-12vh}
   /* odmak boca od rubova ekrana da se slike grožđa ne režu na užim desktopima */
-  .ponuda-inner{padding:0 clamp(2.5rem,6vw,6rem);
+  /* smanjen bočni padding (bilo 6vw/6rem) da bočni stupci — a time i boce i
+     tekst — dobiju više prostora */
+  .ponuda-inner{padding:0 clamp(2rem,3vw,3rem);
     /* koliko fotka vinograda ulazi u bočne stupce — tekst se odmiče da nikad ne prijeđe preko nje */
-    --pon-pad:clamp(2.5rem,6vw,6rem);
+    --pon-pad:clamp(2rem,3vw,3rem);
     --pon-colw:calc((min(100vw - 2rem,1600px) - 2*var(--pon-pad) - 3rem)/2);
     --pon-archw:min(var(--pon-colw),calc((100svh - 5.5rem)/1.36));
     --pon-intrude:max(0px,calc(var(--pon-archw)*.05 - (var(--pon-colw) - var(--pon-archw))/2 - 1.5rem))}
   .wine[data-wine="grasevina"]{padding-right:var(--pon-intrude)}
   .wine[data-wine="kapljica"]{padding-left:var(--pon-intrude)}
 }
-/* Veće boce na cijelom desktopu (≥1025px). Tekstualni stupac stisnut na 104px
-   (najduža riječ „prepoznatljivih" je 99px → 5px zazora, nema prelijevanja),
-   boca uzme ostatak preko 1fr. Boca +22% na 1440px, +17% na 1920px. Blurb ide
-   do 5 redaka — u redu jer boca dominira. Usput popravlja i postojeće prelijevanje
-   teksta na ~1100px (originalni raspored je tamo stiskao tekst ispod širine riječi). */
+/* Veće boce na cijelom desktopu (≥1025px). Tekstualni stupac fiksan 112px
+   (najduža riječ „prepoznatljivih" pri .92rem je ~107px → ~5px zazora, bez
+   prelijevanja), boca uzme ostatak preko 1fr. Uz smanjeni padding i uži luk
+   (1.75fr) boca je ~+48% vs originala. Blurb ide do 5 redaka — u redu jer boca
+   dominira. Usput popravlja i postojeće prelijevanje teksta na ~1100px. */
 @media (min-width:1025px){
-  .wine{grid-template-columns:minmax(0,1fr) 104px}
-  .wine[data-wine="kapljica"]{grid-template-columns:104px minmax(0,1fr)}
-  .bottle-img{width:clamp(150px,86cqw,460px)}
+  .wine{grid-template-columns:minmax(0,1fr) 112px}
+  .wine[data-wine="kapljica"]{grid-template-columns:112px minmax(0,1fr)}
+  .bottle-img{width:clamp(150px,90cqw,480px)}
 }
 @media (prefers-reduced-motion:reduce){
   .wine .bottle-wrap,.wine .wine-name,.wine .wine-blurb{opacity:1;transform:none;transition:none}
