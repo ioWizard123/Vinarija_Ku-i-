@@ -517,6 +517,10 @@ a{color:inherit}
   .bm-stage img{max-height:56vh}
   .car-arrow{width:38px;height:38px}
   .prica-lead,.prica-cols p,.prica-danas,.proslave-cols p{text-align:left}
+  /* mali razmak da ukrasni „P" (koji zbog line-height:0 visi u sljedeći red)
+     ne dodiruje redak „Za više informacija...": inicijal na baseline + veći leading */
+  .proslave-cols .script-initial{vertical-align:0}
+  .proslave-cols .reveal:first-child p{line-height:2}
   .prica{padding:4rem 0 3.5rem}
   .proslave{padding:4rem 0 3.5rem}
   .kontakt{padding:0 0 4rem}
